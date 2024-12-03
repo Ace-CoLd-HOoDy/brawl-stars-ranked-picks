@@ -7,6 +7,7 @@ def print_slowly(text, delay=0.005, color="default"):
         "blue": "\033[34m",     # Синий
         "red": "\033[31m",      # Красный
         "green": "\033[32m",    # Зеленый
+        "yellow": "\033[33m",   # Желтый
     }
     color_code = color_codes.get(color, "\033[0m")  # Если цвет не найден, использовать стандартный
     for char in text:
@@ -144,19 +145,11 @@ def main():
             print_slowly(f"Не рекомендуемые персонажи (боятся выбранных противников): {', '.join(not_recommended)}", color="red")
         else:
             print_slowly("Нет персонажей, которых стоит избегать.", color="green")
-
-        # Финальный выбор: если есть пересечение между общими контрпиками и не рекомендуемыми персонажами
-        final_choice = common_in_counters & not_recommended
-        if final_choice:
-            print_slowly(f"Финальный выбор (общие контрпики и не рекомендуемые персонажи): {', '.join(final_choice)}", color="green")
         
         # Дополнительно выводим фильтрованные общие контрпики (без не рекомендуемых)
         filtered_common_in_counters = common_in_counters - not_recommended
         if filtered_common_in_counters:
-            print_slowly(f"Фильтрованные общие контрпики, финальные (без не рекомендуемых персонажей): {', '.join(filtered_common_in_counters)}", color="blue")
-        else:
-            print_slowly("Нет общих контрпиков без не рекомендуемых персонажей.", color="red")
-
+            print_slowly(f"Финальный выбор (отфльтрованные контрпики): {', '.join(filtered_common_in_counters)}", color="green")
 # Запуск программы
 if __name__ == "__main__":
     main()
